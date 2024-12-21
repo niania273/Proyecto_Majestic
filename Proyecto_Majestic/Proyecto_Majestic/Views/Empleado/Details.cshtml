@@ -1,0 +1,99 @@
+﻿@model Proyecto_Majestic.Empleado
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Ver Empleado</h2>
+<hr />
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nom_emp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom_emp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ape_emp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ape_emp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dni_emp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dni_emp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.fecha_in_emp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fecha_in_emp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telf_emp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telf_emp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.sexo_emp)
+        </dt>
+
+        @if (Model.sexo_emp.Equals("F"))
+        {
+            <dd>Femenino</dd>
+        }
+        else
+        {
+            <dd>Masculino</dd>
+        }
+
+
+        <dt>
+            @Html.DisplayNameFor(model => model.num_emp)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.num_emp)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.est_emp)
+        </dt>
+
+        @if (Model.est_emp == true)
+        {
+            <dd>Habilitado</dd>
+        }
+        else
+        {
+            <dd>Deshabilitado</dd>
+        }
+
+
+    </dl>
+</div>
+<p>
+    <div class="mb-3"></div>
+    <div>
+        @Html.ActionLink("Actualizar", "Edit", new { id = Model.cod_emp }, new { @class = "btn btn-primary" })
+    </div>
+    <div class="mb-3"></div>
+    <div>
+        @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
+</p>

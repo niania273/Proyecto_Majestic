@@ -1,0 +1,212 @@
+﻿@model Proyecto_Majestic.Pedido
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Registrar Pedido</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.cod_cli, "Cliente", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("cod_cli", null, htmlAttributes: new { @class = "form-select" })
+            @Html.ValidationMessageFor(model => model.cod_cli, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.cod_emp, "Empleado", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("cod_emp", null, htmlAttributes: new { @class = "form-select" })
+            @Html.ValidationMessageFor(model => model.cod_emp, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.fec_ped, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.fec_ped, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.fec_ped, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.act_ped, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.act_ped, (SelectList)ViewBag.lstActualizacion, "Seleccionar", new { @class = "form-select" })
+            @Html.ValidationMessageFor(model => model.act_ped, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.est_ped, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.est_ped)
+                <label>Habilitado</label>
+                @Html.ValidationMessageFor(model => model.est_ped, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="productoSelect" class="control-label col-md-2">Producto</label>
+        <div class="col-md-10">
+            <select id="productoSelect" class="form-select">
+                <option value="">Seleccione un producto</option>
+                @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.lstProductos)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="cantidadInput" class="control-label col-md-2">Cantidad</label>
+        <div class="col-md-10">
+            <input type="number" id="cantidadInput" class="form-control" min="1" />
+        </div>
+    </div>
+    <div class="mb-3">
+
+    </div>
+    <div class="form-group">
+        <button type="button" id="btnAddProducto" class="btn btn-warning">Agregar Producto</button>
+    </div>
+    <div class="mb-3">
+
+    </div>
+    <div id="divProductos">
+    </div>
+
+
+    <div class="mb-3"></div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Guardar" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}
+
+<div class="mb-3"></div>
+<div>
+    @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-secondary" })
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        //Lista de productos
+        const productoSelect = document.getElementById("productoSelect");
+
+        //Cantidad
+        const cantidadInput = document.getElementById("cantidadInput");
+
+        //Contenedor de productos
+        const divProductos = document.getElementById("divProductos");
+
+        //Botón para agregar productos
+        const btnAddProducto = document.getElementById("btnAddProducto");
+
+        let productosTable = null;
+        let prodTitle = null;
+
+        btnAddProducto.addEventListener("click", function () {
+            const productoId = productoSelect.value;
+            const productoNombre = productoSelect.options[productoSelect.selectedIndex]?.text || "";
+            const cantidad = cantidadInput.value;
+
+            //Validar código y cantidad de productos
+            if (!productoId || !cantidad || cantidad <= 0) {
+                alert("Seleccione un producto y una cantidad válida.");
+                return;
+            }
+
+            if (!productosTable) {
+                // Crear título si no existe
+                if (!prodTitle) {
+                    prodTitle = document.createElement("h4");
+                    prodTitle.textContent = "Productos";
+                    divProductos.appendChild(prodTitle);
+                }
+
+                // Crear tabla si no existe
+                productosTable = document.createElement("table");
+                productosTable.classList.add("table", "table-hover");
+
+                //Crear cabecera
+                productosTable.innerHTML = `
+                    <thead class="table-light">
+                        <tr>
+                            <th>Código</th>
+                            <th>Nombre</th>
+                            <th>Cantidad</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>`;
+
+                //Agregar a contenedor de productos
+                divProductos.appendChild(productosTable);
+            }
+
+            const tbody = productosTable.querySelector("tbody");
+
+            //Crear una nueva fila en la tabla
+            const newRow = document.createElement("tr");
+
+            //Colocar valores ingresados
+            newRow.innerHTML = `
+                <td>${productoId}</td>
+                <td>${productoNombre}</td>
+                <td>${cantidad}</td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm btnRemove">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+                <input type="hidden" name="Productos[]" value="${productoId}" />
+                <input type="hidden" name="Cantidades[]" value="${cantidad}" />
+            `;
+
+            //Agregar fila al cuerpo de la tabla
+            tbody.appendChild(newRow);
+
+            // Limpiar los inputs
+            productoSelect.value = "";
+            cantidadInput.value = "";
+
+            // Agregar evento para eliminar productos
+            newRow.querySelector(".btnRemove").addEventListener("click", function () {
+                newRow.remove();
+
+                // Si no quedan filas, eliminar la tabla y el título
+                if (!tbody.hasChildNodes()) {
+                    if (productosTable) {
+                        productosTable.remove();
+                        productosTable = null;
+                    }
+                    if (prodTitle) {
+                        prodTitle.remove();
+                        prodTitle = null;
+                    }
+                }
+            });
+        });
+    });
+</script>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

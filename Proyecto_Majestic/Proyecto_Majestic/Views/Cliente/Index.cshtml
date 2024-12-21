@@ -1,0 +1,133 @@
+﻿@model IEnumerable<Proyecto_Majestic.Cliente>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Mantenimiento de Clientes</h2>
+
+<div class="d-flex justify-content-between align-items-center">
+    <div>
+        <p>
+            <a href="@Url.Action("Create")" class="btn btn-primary" title="Registrar">
+                <i class="bi bi-plus-circle"></i> Registrar
+            </a>
+        </p>
+    </div>
+
+
+    <div class="d-flex justify-content-end">
+        <p style="margin-right: 5px;">
+            <a href="@Url.Action("Index", "Distrito")" class="btn btn-secondary" title="Ver Distritos">
+                <i class="bi bi-geo-alt"></i> Ver Distritos
+            </a>
+        </p>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    Cod.
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.ruc_cli)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.nom_cli)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.telf_cli)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.email_cli)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.dir_cli)
+                </th>
+                <th>
+                    Distrito
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.est_cli)
+                </th>
+                <th>
+                    Acciones
+                </th>
+            </tr>
+        </thead>
+
+        <tbody class="table-group-divider">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">
+                        @Html.DisplayFor(modelItem => item.cod_cli)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ruc_cli)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nom_cli)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.telf_cli)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.email_cli)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.dir_cli)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Distrito.nom_dis)
+                    </td>
+                    <td>
+                        @if (item.est_cli)
+                        {
+                            <span>Habilitado</span>
+                        }
+                        else
+                        {
+                            <span>Desabilitado</span>
+                        }
+                    </td>
+                    <td>
+                        <div class="d-flex flex-column gap-2">
+                            <div class="d-flex justify-content-around gap-2">
+                                <a href="@Url.Action("Details", new { id = item.cod_cli })" class="btn btn-info btn-sm" title="Detalles">
+                                    <i class="bi bi-file-text"></i>
+                                </a>
+                                <a href="@Url.Action("Edit", new { id = item.cod_cli })" class="btn btn-warning btn-sm" title="Editar">
+                                    <i class="bi bi-pencil"></i>
+                                </a>
+                            </div>
+                            <div class="d-flex justify-content-around gap-2">
+                                <a href="@Url.Action("Habilitar", new { id = item.cod_cli })" class="btn btn-success btn-sm" title="Habilitar">
+                                    <i class="bi bi-check-circle"></i>
+                                </a>
+                                <a href="@Url.Action("Delete", new { id = item.cod_cli })" class="btn btn-danger btn-sm" title="Eliminar">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-end">
+        @for (int i = 0; i < (int)ViewBag.npags; i++)
+        {
+            <li class="page-item @(i == (int)ViewBag.pag ? "active" : "")" @(i == (int)ViewBag.pag ? "aria-current=\"page\"" : "")>
+                @Html.ActionLink((i + 1).ToString(), "Index", new { pag = i }, new { @class = "page-link" })
+            </li>
+        }
+    </ul>
+</nav>

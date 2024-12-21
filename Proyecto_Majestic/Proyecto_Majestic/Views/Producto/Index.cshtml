@@ -1,0 +1,138 @@
+﻿@model IEnumerable<Proyecto_Majestic.Producto>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Mantenimiento de Productos</h2>
+
+<div class="d-flex justify-content-between align-items-center">
+    <div>
+        <p>
+            <a href="@Url.Action("Create")" class="btn btn-primary" title="Registrar">
+                <i class="bi bi-plus-circle"></i> Registrar
+            </a>
+        </p>
+    </div>
+
+
+    <div class="d-flex justify-content-end">
+        <p style="margin-right: 5px;">
+            <a href="@Url.Action("Index", "Categoria")" class="btn btn-secondary" title="Ver Categorías">
+                <i class="bi bi-bookmark-star"></i> Ver Categorías
+            </a>
+        </p>
+        <p>
+            <a href="@Url.Action("Index", "Marca")" class="btn btn-outline-secondary" title="Ver Marcas">
+                <i class="bi bi-badge-tm"></i> Ver Marcas
+            </a>
+        </p>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.cod_prod)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.nom_prod)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.stock_max_prod)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.stock_min_prod)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.prec_list_prod)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.cap_bat)
+                </th>
+                <th>
+                    Categoría
+                </th>
+                <th>
+                    Marca
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.est_prod)
+                </th>
+                <th>
+                    Acciones
+                </th>
+            </tr>
+        </thead>
+
+        <tbody class="table-group-divider">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">
+                        @Html.DisplayFor(modelItem => item.cod_prod)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nom_prod)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.stock_max_prod)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.stock_min_prod)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.prec_list_prod)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.cap_bat)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Categoria.nom_cat)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Marca.nom_mar)
+                    </td>
+                    <td>
+                        @if (item.est_prod)
+                        {
+                            <span>Habilitado</span>
+                        }
+                        else
+                        {
+                            <span>Desabilitado</span>
+                        }
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details", new { id = item.cod_prod })" class="btn btn-info btn-sm" title="Detalles">
+                            <i class="bi bi-file-text"></i>
+                        </a>
+                        <a href="@Url.Action("Edit", new { id = item.cod_prod })" class="btn btn-warning btn-sm" title="Editar">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <a href="@Url.Action("Habilitar", new { id = item.cod_prod })" class="btn btn-success btn-sm" title="Habilitar">
+                            <i class="bi bi-check-circle"></i>
+                        </a>
+                        <a href="@Url.Action("Delete", new { id = item.cod_prod })" class="btn btn-danger btn-sm" title="Eliminar">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-end">
+        @for (int i = 0; i < (int)ViewBag.npags; i++)
+        {
+            <li class="page-item @(i == (int)ViewBag.pag ? "active" : "")" @(i == (int)ViewBag.pag ? "aria-current=\"page\"" : "")>
+                @Html.ActionLink((i + 1).ToString(), "Index", new { pag = i }, new { @class = "page-link" })
+            </li>
+        }
+    </ul>
+</nav>

@@ -1,0 +1,44 @@
+﻿@model Proyecto_Majestic.Categoria
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Ver Categoría</h2>
+<hr />
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.nom_cat)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom_cat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.est_cat)
+        </dt>
+
+            @if(Model.est_cat == true)
+            {
+                <dd>Habilitado</dd>
+            }
+            else
+            {
+                <dd>Deshabilitado</dd>
+            }
+
+    </dl>
+</div>
+<p>
+    <div class="mb-3"></div>
+    <div>
+        @Html.ActionLink("Actualizar", "Edit", new { id = Model.cod_cat }, new { @class = "btn btn-primary" })
+    </div>
+    <div class="mb-3"></div>
+    <div>
+        @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
+</p>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="26309ae024194d9eb5d3d9e59509ff92" Name="Diagram1">
+        <EntityTypeShape EntityType="BDMAJESTICModel.Categoria" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDMAJESTICModel.Cliente" Width="1.5" PointX="0.75" PointY="9.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDMAJESTICModel.Distrito" Width="1.5" PointX="1.5" PointY="14.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDMAJESTICModel.Empleado" Width="1.5" PointX="0.75" PointY="17.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDMAJESTICModel.Marca" Width="1.5" PointX="0.75" PointY="5.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDMAJESTICModel.Pedido" Width="1.5" PointX="3" PointY="11.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDMAJESTICModel.Pedido_Producto" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDMAJESTICModel.Producto" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDMAJESTICModel.Rol" Width="1.5" PointX="0.75" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BDMAJESTICModel.Usuario" Width="1.5" PointX="3" PointY="18" IsExpanded="true" />
+        <AssociationConnector Association="BDMAJESTICModel.FK__Producto__cod_ca__44FF419A" ManuallyRouted="false" />
+        <AssociationConnector Association="BDMAJESTICModel.FK__Cliente__cod_dis__48CFD27E" ManuallyRouted="false" />
+        <AssociationConnector Association="BDMAJESTICModel.FK__Pedido__cod_cli__4BAC3F29" ManuallyRouted="false" />
+        <AssociationConnector Association="BDMAJESTICModel.FK__Pedido__cod_emp__4CA06362" ManuallyRouted="false" />
+        <AssociationConnector Association="BDMAJESTICModel.FK__Usuario__cod_emp__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="BDMAJESTICModel.FK__Producto__cod_ma__45F365D3" ManuallyRouted="false" />
+        <AssociationConnector Association="BDMAJESTICModel.FK__Pedido_Pr__cod_p__4F7CD00D" ManuallyRouted="false" />
+        <AssociationConnector Association="BDMAJESTICModel.FK__Pedido_Pr__cod_p__5070F446" ManuallyRouted="false" />
+        <AssociationConnector Association="BDMAJESTICModel.FK__Usuario__cod_rol__3C69FB99" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,234 @@
+﻿@model Proyecto_Majestic.Pedido
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Actualizar Pedido</h2>
+<hr />
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.cod_ped)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.cod_cli, "Cliente", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("cod_cli", null, htmlAttributes: new { @class = "form-select" })
+            @Html.ValidationMessageFor(model => model.cod_cli, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.cod_emp, "Empleado", htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownList("cod_emp", null, htmlAttributes: new { @class = "form-select" })
+            @Html.ValidationMessageFor(model => model.cod_emp, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.fec_ped, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.fec_ped, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.fec_ped, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.act_ped, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.act_ped, (SelectList)ViewBag.lstActualizacion, "Seleccionar", new { @class = "form-select" })
+            @Html.ValidationMessageFor(model => model.act_ped, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.est_ped, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <div class="checkbox">
+                @Html.EditorFor(model => model.est_ped)
+                <label>Habilitado</label>
+                @Html.ValidationMessageFor(model => model.est_ped, "", new { @class = "text-danger" })
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="productoSelect" class="control-label col-md-2">Producto</label>
+        <div class="col-md-10">
+            <select id="productoSelect" class="form-select">
+                <option value="">Seleccione un producto</option>
+                @foreach (var item in (IEnumerable<SelectListItem>)ViewBag.lstProductos)
+                {
+                    <option value="@item.Value">@item.Text</option>
+                }
+            </select>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="cantidadInput" class="control-label col-md-2">Cantidad</label>
+        <div class="col-md-10">
+            <input type="number" id="cantidadInput" class="form-control" min="1"/>
+        </div>
+    </div>
+    <div class="mb-3">
+
+    </div>
+    <div class="form-group">
+        <button type="button" id="btnAddProducto" class="btn btn-warning">Agregar Producto</button>
+    </div>
+
+    <div class="mb-3">
+
+    </div>
+
+    <div>
+        <h4 id="productosTitulo" style="display: none;">Productos Asociados</h4>
+        <table class="table table-hover" id="productosTable" style="display: none;">
+            <thead class="table-light">
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Cantidad</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pedpro in Model.Pedido_Producto)
+                {
+                    <tr>
+                        <td>@pedpro.cod_prod</td>
+                        <td>@pedpro.Producto.nom_prod</td>
+                        <td>@pedpro.can_prod</td>
+                        <td>
+                            <button type="button" class="btn btn-danger btn-sm btnRemove">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </td>
+                        <td style="display: none;">
+                            <input type="hidden" name="Productos[]" value="@pedpro.cod_prod" />
+                            <input type="hidden" name="Cantidades[]" value="@pedpro.can_prod" />
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="mb-3"></div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Guardar" class="btn btn-primary" />
+        </div>
+    </div>
+</div>
+}
+
+<div class="mb-3"></div>
+<div>
+    @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-secondary" })
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+        //Lista de productos
+        const productoSelect = document.getElementById("productoSelect");
+
+        //Cantidad de productos
+        const cantidadInput = document.getElementById("cantidadInput");
+
+        //Tabla de productos
+        const tabla = document.getElementById("productosTable");
+
+        //Cuerpo de tabla de productos
+        const productosTable = tabla ? tabla.querySelector("tbody") : null;
+
+        //Botón de productos
+        const btnAddProducto = document.getElementById("btnAddProducto");
+
+        //Título de tabla
+        const productosTitulo = document.getElementById("productosTitulo");
+
+
+        //Función para ocultar tabla si no tiene filas
+        function toggleTableVisibility() {
+            const hasRows = productosTable && productosTable.children.length > 0;
+            tabla.style.display = hasRows ? "" : "none";
+            productosTitulo.style.display = hasRows ? "" : "none";
+        }
+
+        //Función para eliminar filas y actualizar visibilidad
+        function attachRemoveButtonHandler(button) {
+            button.addEventListener("click", function () {
+                button.closest("tr").remove();
+                toggleTableVisibility();
+            });
+        }
+
+        //Agregar botón Eliminar a las filas predeterminadas
+        document.querySelectorAll(".btnRemove").forEach(attachRemoveButtonHandler);
+
+        //Obtener productos de la tabla
+        btnAddProducto.addEventListener("click", function () {
+            const productoId = productoSelect.value;
+            const productoNombre = productoSelect.options[productoSelect.selectedIndex]?.text || "";
+            const cantidad = cantidadInput.value;
+
+            //Validar código y cantidad de productos
+            if (!productoId || !cantidad || cantidad <= 0) {
+                alert("Seleccione un producto y una cantidad válida.");
+                return;
+            }
+
+            // Crear una nueva fila en la tabla
+            const newRow = document.createElement("tr");
+            newRow.innerHTML = `
+                <td>${productoId}</td>
+                <td>${productoNombre}</td>
+                <td>${cantidad}</td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm btnRemove">
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </td>
+                <input type="hidden" name="Productos[]" value="${productoId}" />
+                <input type="hidden" name="Cantidades[]" value="${cantidad}" />
+            `;
+
+            //Agregar fila a la tabla
+            productosTable.appendChild(newRow);
+
+            // Limpiar los inputs
+            productoSelect.value = "";
+            cantidadInput.value = "";
+
+            //Verificar visibilidad de la tabla
+            toggleTableVisibility();
+
+            //Evento para ocultar las filas
+            newRow.querySelector(".btnRemove").addEventListener("click", function () {
+
+                //Eliminar fila
+                newRow.remove();
+
+                //Verificar visibilidad de la tabla
+                toggleTableVisibility();
+            });
+        });
+
+        //Verificar visibilidad de la tabla
+        toggleTableVisibility();
+    });
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

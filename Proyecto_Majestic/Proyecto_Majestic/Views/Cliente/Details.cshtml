@@ -1,0 +1,84 @@
+﻿@model Proyecto_Majestic.Cliente
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Ver Cliente</h2>
+<hr />
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ruc_cli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ruc_cli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.nom_cli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.nom_cli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.telf_cli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.telf_cli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.email_cli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.email_cli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.dir_cli)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.dir_cli)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.est_cli)
+        </dt>
+
+        @if (Model.est_cli == true)
+        {
+            <dd>Habilitado</dd>
+        }
+        else
+        {
+            <dd>Deshabilitado</dd>
+        }
+
+        <dt>
+            Distrito
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Distrito.nom_dis)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    <div class="mb-3"></div>
+    <div>
+        @Html.ActionLink("Actualizar", "Edit", new { id = Model.cod_cli}, new { @class = "btn btn-primary" })
+    </div>
+    <div class="mb-3"></div>
+    <div>
+        @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
+</p>

@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    var usuario = Session["Usuario"];
+}
+
+<main>
+    <section class="row" aria-labelledby="aspnetTitle">
+        <h1 id="title">Hola @usuario, ¿qué deseas hacer?</h1>
+        <p class="lead">
+            Esta plataforma ha sido desarrollada específicamente para optimizar la gestión de pedidos en Majestic Corporation. Permite registrar y mantener de manera eficiente toda la información relacionada con productos, pedidos y clientes, asegurando un flujo de trabajo más ágil y organizado.
+        </p>
+    </section>
+    <div class="row">
+        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
+            <h4 id="gettingStartedTitle">Consultar Productos</h4>
+            <p>
+                Accede a detalles sobre el stock disponible, precios actualizados y el estado de cada producto en nuestro catálogo.
+            </p>
+            <p><a class="btn btn-outline-dark" href="@Url.Action("Index", "Producto")">Consultar</a></p>
+        </section>
+        <section class="col-md-4" aria-labelledby="librariesTitle">
+            <h4 id="librariesTitle">Actualizar Clientes</h4>
+            <p>
+                Gestiona la información de los clientes, incluyendo datos de contacto, ubicación y preferencias.
+            </p>
+            <p><a class="btn btn-outline-dark" href="@Url.Action("Index", "Cliente")">Actualizar</a></p>
+        </section>
+        <section class="col-md-4" aria-labelledby="hostingTitle">
+            <h4 id="hostingTitle">Generar Pedidos</h4>
+            <p>
+                Crea nuevos pedidos de manera rápida y eficiente, asegurando el registro de todos los detalles necesarios para su procesamiento.
+            </p>
+            <p><a class="btn btn-outline-dark" href="@Url.Action("Create", "Pedido")">Generar</a></p>
+        </section>
+    </div>
+</main>

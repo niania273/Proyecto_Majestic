@@ -1,0 +1,93 @@
+﻿@model Proyecto_Majestic.Pedido
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Ver Pedido</h2>
+<hr />
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.fec_ped)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.fec_ped)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.act_ped)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.act_ped)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.est_ped)
+        </dt>
+
+        @if (Model.est_ped == true)
+        {
+            <dd>Habilitado</dd>
+        }
+        else
+        {
+            <dd>Deshabilitado</dd>
+        }
+
+        <dt>
+            Cliente
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Cliente.nom_cli)
+        </dd>
+
+        <dt>
+            Empleado
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Empleado.nom_emp) @Html.DisplayFor(model => model.Empleado.ape_emp)
+        </dd>
+
+    </dl>
+    <div>
+        @if (Model.Pedido_Producto.Any())
+        {
+            <h4>Productos</h4>
+            <table class="table table-hover" id="productosTable">
+                <thead class="table-light">
+                    <tr>
+                        <th>Código</th>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var pedpro in Model.Pedido_Producto)
+                    {
+                        <tr>
+                            <td>@pedpro.cod_prod</td>
+                            <td>@pedpro.Producto.nom_prod</td>
+                            <td>@pedpro.can_prod</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+    </div>
+</div>
+<p>
+    <div class="mb-3"></div>
+    <div>
+        @Html.ActionLink("Actualizar", "Edit", new { id = Model.cod_ped }, new { @class = "btn btn-primary" })
+    </div>
+    <div class="mb-3"></div>
+    <div>
+        @Html.ActionLink("Volver", "Index", null, new { @class = "btn btn-secondary" })
+    </div>
+</p>

@@ -1,0 +1,100 @@
+﻿@model IEnumerable<Proyecto_Majestic.Pedido>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Mantenimiento de Pedidos</h2>
+
+<p>
+    <a href="@Url.Action("Create")" class="btn btn-primary" title="Registrar">
+        <i class="bi bi-plus-circle"></i> Registrar
+    </a>
+</p>
+
+<div class="table-responsive">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.cod_ped)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.fec_ped)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.act_ped)
+                </th>
+                <th>
+                    Cliente
+                </th>
+                <th>
+                    Empleado
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.est_ped)
+                </th>
+                <th>
+                    Acciones
+                </th>
+            </tr>
+        </thead>
+        <tbody class="table-group-divider">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <th scope="row">
+                        @Html.DisplayFor(modelItem => item.cod_ped)
+                    </th>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fec_ped)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.act_ped)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Cliente.nom_cli)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Empleado.nom_emp) @Html.DisplayFor(modelItem => item.Empleado.ape_emp)
+                    </td>
+                    <td>
+                        @if (item.est_ped)
+                        {
+                            <span>Habilitado</span>
+                        }
+                        else
+                        {
+                            <span>Deshabilitado</span>
+                        }
+                    </td>
+                    <td>
+                        <a href="@Url.Action("Details", new { id = item.cod_ped })" class="btn btn-info btn-sm" title="Detalles">
+                            <i class="bi bi-file-text"></i>
+                        </a>
+                        <a href="@Url.Action("Edit", new { id = item.cod_ped })" class="btn btn-warning btn-sm" title="Editar">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <a href="@Url.Action("Habilitar", new { id = item.cod_ped })" class="btn btn-success btn-sm" title="Habilitar">
+                            <i class="bi bi-check-circle"></i>
+                        </a>
+                        <a href="@Url.Action("Delete", new { id = item.cod_ped })" class="btn btn-danger btn-sm" title="Eliminar">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-end">
+        @for (int i = 0; i < (int)ViewBag.npags; i++)
+        {
+            <li class="page-item @(i == (int)ViewBag.pag ? "active" : "")" @(i == (int)ViewBag.pag ? "aria-current=\"page\"" : "")>
+                @Html.ActionLink((i + 1).ToString(), "Index", new { pag = i }, new { @class = "page-link" })
+            </li>
+        }
+    </ul>
+</nav>

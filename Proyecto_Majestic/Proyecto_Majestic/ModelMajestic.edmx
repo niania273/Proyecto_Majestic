@@ -1,0 +1,708 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="BDMAJESTICModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="cod_cat" />
+          </Key>
+          <Property Name="cod_cat" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_cat" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="est_cat" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="cod_cli" />
+          </Key>
+          <Property Name="cod_cli" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ruc_cli" Type="char" MaxLength="11" Nullable="false" />
+          <Property Name="nom_cli" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="telf_cli" Type="char" MaxLength="7" />
+          <Property Name="email_cli" Type="varchar" MaxLength="60" />
+          <Property Name="dir_cli" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="cod_dis" Type="int" />
+          <Property Name="est_cli" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Distrito">
+          <Key>
+            <PropertyRef Name="cod_dis" />
+          </Key>
+          <Property Name="cod_dis" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_dis" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="est_dis" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="cod_emp" />
+          </Key>
+          <Property Name="cod_emp" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_emp" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="ape_emp" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="dni_emp" Type="char" MaxLength="8" Nullable="false" />
+          <Property Name="fecha_in_emp" Type="date" Nullable="false" />
+          <Property Name="telf_emp" Type="char" MaxLength="9" Nullable="false" />
+          <Property Name="sexo_emp" Type="char" MaxLength="1" />
+          <Property Name="num_emp" Type="int" Nullable="false" />
+          <Property Name="est_emp" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Marca">
+          <Key>
+            <PropertyRef Name="cod_mar" />
+          </Key>
+          <Property Name="cod_mar" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_mar" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="est_mar" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pedido">
+          <Key>
+            <PropertyRef Name="cod_ped" />
+          </Key>
+          <Property Name="cod_ped" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="cod_cli" Type="int" Nullable="false" />
+          <Property Name="cod_emp" Type="int" Nullable="false" />
+          <Property Name="fec_ped" Type="date" Nullable="false" />
+          <Property Name="act_ped" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="est_ped" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Pedido_Producto">
+          <Key>
+            <PropertyRef Name="cod_ped" />
+            <PropertyRef Name="cod_prod" />
+          </Key>
+          <Property Name="cod_ped" Type="int" Nullable="false" />
+          <Property Name="cod_prod" Type="int" Nullable="false" />
+          <Property Name="pre_prod" Type="money" Nullable="false" />
+          <Property Name="can_prod" Type="int" Nullable="false" />
+          <Property Name="est_pp" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="cod_prod" />
+          </Key>
+          <Property Name="cod_prod" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_prod" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="stock_max_prod" Type="int" Nullable="true" />
+          <Property Name="stock_min_prod" Type="int" Nullable="true" />
+          <Property Name="prec_list_prod" Type="money" Nullable="false" />
+          <Property Name="cap_bat" Type="varchar" MaxLength="15" />
+          <Property Name="cod_cat" Type="int" Nullable="false" />
+          <Property Name="cod_mar" Type="int" Nullable="false" />
+          <Property Name="est_prod" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="cod_rol" />
+          </Key>
+          <Property Name="cod_rol" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nom_rol" Type="varchar" MaxLength="50" />
+          <Property Name="est_rol" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="cod_usu" />
+          </Key>
+          <Property Name="cod_usu" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+			<Property Name="nom_usu" Type="varchar" MaxLength="100" Nullable="false" />
+			<Property Name="ape_usu" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ema_usu" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="con_usu" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="fec_cre" Type="datetime" />
+          <Property Name="cod_emp" Type="int" />
+          <Property Name="cod_rol" Type="int" />
+          <Property Name="est_usu" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Cliente__cod_dis__48CFD27E">
+          <End Role="Distrito" Type="Self.Distrito" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Distrito">
+              <PropertyRef Name="cod_dis" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="cod_dis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pedido__cod_cli__4BAC3F29">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cod_cli" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="cod_cli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pedido__cod_emp__4CA06362">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="cod_emp" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="cod_emp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pedido_Pr__cod_p__4F7CD00D">
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
+          <End Role="Pedido_Producto" Type="Self.Pedido_Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido">
+              <PropertyRef Name="cod_ped" />
+            </Principal>
+            <Dependent Role="Pedido_Producto">
+              <PropertyRef Name="cod_ped" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pedido_Pr__cod_p__5070F446">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Pedido_Producto" Type="Self.Pedido_Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="cod_prod" />
+            </Principal>
+            <Dependent Role="Pedido_Producto">
+              <PropertyRef Name="cod_prod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Producto__cod_ca__44FF419A">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="cod_cat" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="cod_cat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Producto__cod_ma__45F365D3">
+          <End Role="Marca" Type="Self.Marca" Multiplicity="1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marca">
+              <PropertyRef Name="cod_mar" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="cod_mar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__cod_emp__3B75D760">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="cod_emp" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="cod_emp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__cod_rol__3C69FB99">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="cod_rol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="cod_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BDMAJESTICModelStoreContainer">
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Distrito" EntityType="Self.Distrito" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Empleado" EntityType="Self.Empleado" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Marca" EntityType="Self.Marca" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pedido" EntityType="Self.Pedido" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Pedido_Producto" EntityType="Self.Pedido_Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Cliente__cod_dis__48CFD27E" Association="Self.FK__Cliente__cod_dis__48CFD27E">
+            <End Role="Distrito" EntitySet="Distrito" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pedido__cod_cli__4BAC3F29" Association="Self.FK__Pedido__cod_cli__4BAC3F29">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pedido__cod_emp__4CA06362" Association="Self.FK__Pedido__cod_emp__4CA06362">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pedido_Pr__cod_p__4F7CD00D" Association="Self.FK__Pedido_Pr__cod_p__4F7CD00D">
+            <End Role="Pedido" EntitySet="Pedido" />
+            <End Role="Pedido_Producto" EntitySet="Pedido_Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pedido_Pr__cod_p__5070F446" Association="Self.FK__Pedido_Pr__cod_p__5070F446">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Pedido_Producto" EntitySet="Pedido_Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Producto__cod_ca__44FF419A" Association="Self.FK__Producto__cod_ca__44FF419A">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Producto__cod_ma__45F365D3" Association="Self.FK__Producto__cod_ma__45F365D3">
+            <End Role="Marca" EntitySet="Marca" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__cod_emp__3B75D760" Association="Self.FK__Usuario__cod_emp__3B75D760">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__cod_rol__3C69FB99" Association="Self.FK__Usuario__cod_rol__3C69FB99">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BDMAJESTICModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Categoria">
+          <Key>
+            <PropertyRef Name="cod_cat" />
+          </Key>
+          <Property Name="cod_cat" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_cat" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="est_cat" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK__Producto__cod_ca__44FF419A" FromRole="Categoria" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Cliente">
+          <Key>
+            <PropertyRef Name="cod_cli" />
+          </Key>
+          <Property Name="cod_cli" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ruc_cli" Type="String" MaxLength="11" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="nom_cli" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telf_cli" Type="String" MaxLength="7" FixedLength="true" Unicode="false" />
+          <Property Name="email_cli" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
+          <Property Name="dir_cli" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cod_dis" Type="Int32" />
+          <Property Name="est_cli" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Distrito" Relationship="Self.FK__Cliente__cod_dis__48CFD27E" FromRole="Cliente" ToRole="Distrito" />
+          <NavigationProperty Name="Pedido" Relationship="Self.FK__Pedido__cod_cli__4BAC3F29" FromRole="Cliente" ToRole="Pedido" />
+        </EntityType>
+        <EntityType Name="Distrito">
+          <Key>
+            <PropertyRef Name="cod_dis" />
+          </Key>
+          <Property Name="cod_dis" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_dis" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="est_dis" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Cliente__cod_dis__48CFD27E" FromRole="Distrito" ToRole="Cliente" />
+        </EntityType>
+        <EntityType Name="Empleado">
+          <Key>
+            <PropertyRef Name="cod_emp" />
+          </Key>
+          <Property Name="cod_emp" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_emp" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ape_emp" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dni_emp" Type="String" MaxLength="8" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="fecha_in_emp" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="telf_emp" Type="String" MaxLength="9" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="sexo_emp" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="num_emp" Type="Int32" Nullable="false" />
+          <Property Name="est_emp" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Pedido" Relationship="Self.FK__Pedido__cod_emp__4CA06362" FromRole="Empleado" ToRole="Pedido" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Usuario__cod_emp__3B75D760" FromRole="Empleado" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Marca">
+          <Key>
+            <PropertyRef Name="cod_mar" />
+          </Key>
+          <Property Name="cod_mar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_mar" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="est_mar" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK__Producto__cod_ma__45F365D3" FromRole="Marca" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Pedido">
+          <Key>
+            <PropertyRef Name="cod_ped" />
+          </Key>
+          <Property Name="cod_ped" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="cod_cli" Type="Int32" Nullable="false" />
+          <Property Name="cod_emp" Type="Int32" Nullable="false" />
+          <Property Name="fec_ped" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="act_ped" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="est_ped" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Cliente" Relationship="Self.FK__Pedido__cod_cli__4BAC3F29" FromRole="Pedido" ToRole="Cliente" />
+          <NavigationProperty Name="Empleado" Relationship="Self.FK__Pedido__cod_emp__4CA06362" FromRole="Pedido" ToRole="Empleado" />
+          <NavigationProperty Name="Pedido_Producto" Relationship="Self.FK__Pedido_Pr__cod_p__4F7CD00D" FromRole="Pedido" ToRole="Pedido_Producto" />
+        </EntityType>
+        <EntityType Name="Pedido_Producto">
+          <Key>
+            <PropertyRef Name="cod_ped" />
+            <PropertyRef Name="cod_prod" />
+          </Key>
+          <Property Name="cod_ped" Type="Int32" Nullable="false" />
+          <Property Name="cod_prod" Type="Int32" Nullable="false" />
+          <Property Name="pre_prod" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="can_prod" Type="Int32" Nullable="false" />
+          <Property Name="est_pp" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Pedido" Relationship="Self.FK__Pedido_Pr__cod_p__4F7CD00D" FromRole="Pedido_Producto" ToRole="Pedido" />
+          <NavigationProperty Name="Producto" Relationship="Self.FK__Pedido_Pr__cod_p__5070F446" FromRole="Pedido_Producto" ToRole="Producto" />
+        </EntityType>
+        <EntityType Name="Producto">
+          <Key>
+            <PropertyRef Name="cod_prod" />
+          </Key>
+          <Property Name="cod_prod" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_prod" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="stock_max_prod" Type="Int32" Nullable="true" />
+          <Property Name="stock_min_prod" Type="Int32" Nullable="true"/>
+          <Property Name="prec_list_prod" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="cap_bat" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="cod_cat" Type="Int32" Nullable="false" />
+          <Property Name="cod_mar" Type="Int32" Nullable="false" />
+          <Property Name="est_prod" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Categoria" Relationship="Self.FK__Producto__cod_ca__44FF419A" FromRole="Producto" ToRole="Categoria" />
+          <NavigationProperty Name="Marca" Relationship="Self.FK__Producto__cod_ma__45F365D3" FromRole="Producto" ToRole="Marca" />
+          <NavigationProperty Name="Pedido_Producto" Relationship="Self.FK__Pedido_Pr__cod_p__5070F446" FromRole="Producto" ToRole="Pedido_Producto" />
+        </EntityType>
+        <EntityType Name="Rol">
+          <Key>
+            <PropertyRef Name="cod_rol" />
+          </Key>
+          <Property Name="cod_rol" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nom_rol" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="est_rol" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Usuario" Relationship="Self.FK__Usuario__cod_rol__3C69FB99" FromRole="Rol" ToRole="Usuario" />
+        </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="cod_usu" />
+          </Key>
+          <Property Name="cod_usu" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+			<Property Name="nom_usu" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+			<Property Name="ape_usu" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+			<Property Name="ema_usu" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="con_usu" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fec_cre" Type="DateTime" Precision="3" />
+          <Property Name="cod_emp" Type="Int32" />
+          <Property Name="cod_rol" Type="Int32" />
+          <Property Name="est_usu" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Empleado" Relationship="Self.FK__Usuario__cod_emp__3B75D760" FromRole="Usuario" ToRole="Empleado" />
+          <NavigationProperty Name="Rol" Relationship="Self.FK__Usuario__cod_rol__3C69FB99" FromRole="Usuario" ToRole="Rol" />
+        </EntityType>
+        <Association Name="FK__Producto__cod_ca__44FF419A">
+          <End Role="Categoria" Type="Self.Categoria" Multiplicity="1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Categoria">
+              <PropertyRef Name="cod_cat" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="cod_cat" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Cliente__cod_dis__48CFD27E">
+          <End Role="Distrito" Type="Self.Distrito" Multiplicity="0..1" />
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Distrito">
+              <PropertyRef Name="cod_dis" />
+            </Principal>
+            <Dependent Role="Cliente">
+              <PropertyRef Name="cod_dis" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pedido__cod_cli__4BAC3F29">
+          <End Role="Cliente" Type="Self.Cliente" Multiplicity="1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Cliente">
+              <PropertyRef Name="cod_cli" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="cod_cli" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pedido__cod_emp__4CA06362">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="1" />
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="cod_emp" />
+            </Principal>
+            <Dependent Role="Pedido">
+              <PropertyRef Name="cod_emp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__cod_emp__3B75D760">
+          <End Role="Empleado" Type="Self.Empleado" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Empleado">
+              <PropertyRef Name="cod_emp" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="cod_emp" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Producto__cod_ma__45F365D3">
+          <End Role="Marca" Type="Self.Marca" Multiplicity="1" />
+          <End Role="Producto" Type="Self.Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Marca">
+              <PropertyRef Name="cod_mar" />
+            </Principal>
+            <Dependent Role="Producto">
+              <PropertyRef Name="cod_mar" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pedido_Pr__cod_p__4F7CD00D">
+          <End Role="Pedido" Type="Self.Pedido" Multiplicity="1" />
+          <End Role="Pedido_Producto" Type="Self.Pedido_Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pedido">
+              <PropertyRef Name="cod_ped" />
+            </Principal>
+            <Dependent Role="Pedido_Producto">
+              <PropertyRef Name="cod_ped" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Pedido_Pr__cod_p__5070F446">
+          <End Role="Producto" Type="Self.Producto" Multiplicity="1" />
+          <End Role="Pedido_Producto" Type="Self.Pedido_Producto" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Producto">
+              <PropertyRef Name="cod_prod" />
+            </Principal>
+            <Dependent Role="Pedido_Producto">
+              <PropertyRef Name="cod_prod" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Usuario__cod_rol__3C69FB99">
+          <End Role="Rol" Type="Self.Rol" Multiplicity="0..1" />
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Rol">
+              <PropertyRef Name="cod_rol" />
+            </Principal>
+            <Dependent Role="Usuario">
+              <PropertyRef Name="cod_rol" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BDMAJESTICEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Categoria" EntityType="Self.Categoria" />
+          <EntitySet Name="Cliente" EntityType="Self.Cliente" />
+          <EntitySet Name="Distrito" EntityType="Self.Distrito" />
+          <EntitySet Name="Empleado" EntityType="Self.Empleado" />
+          <EntitySet Name="Marca" EntityType="Self.Marca" />
+          <EntitySet Name="Pedido" EntityType="Self.Pedido" />
+          <EntitySet Name="Pedido_Producto" EntityType="Self.Pedido_Producto" />
+          <EntitySet Name="Producto" EntityType="Self.Producto" />
+          <EntitySet Name="Rol" EntityType="Self.Rol" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" />
+          <AssociationSet Name="FK__Producto__cod_ca__44FF419A" Association="Self.FK__Producto__cod_ca__44FF419A">
+            <End Role="Categoria" EntitySet="Categoria" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Cliente__cod_dis__48CFD27E" Association="Self.FK__Cliente__cod_dis__48CFD27E">
+            <End Role="Distrito" EntitySet="Distrito" />
+            <End Role="Cliente" EntitySet="Cliente" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pedido__cod_cli__4BAC3F29" Association="Self.FK__Pedido__cod_cli__4BAC3F29">
+            <End Role="Cliente" EntitySet="Cliente" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pedido__cod_emp__4CA06362" Association="Self.FK__Pedido__cod_emp__4CA06362">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Pedido" EntitySet="Pedido" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__cod_emp__3B75D760" Association="Self.FK__Usuario__cod_emp__3B75D760">
+            <End Role="Empleado" EntitySet="Empleado" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Producto__cod_ma__45F365D3" Association="Self.FK__Producto__cod_ma__45F365D3">
+            <End Role="Marca" EntitySet="Marca" />
+            <End Role="Producto" EntitySet="Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pedido_Pr__cod_p__4F7CD00D" Association="Self.FK__Pedido_Pr__cod_p__4F7CD00D">
+            <End Role="Pedido" EntitySet="Pedido" />
+            <End Role="Pedido_Producto" EntitySet="Pedido_Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Pedido_Pr__cod_p__5070F446" Association="Self.FK__Pedido_Pr__cod_p__5070F446">
+            <End Role="Producto" EntitySet="Producto" />
+            <End Role="Pedido_Producto" EntitySet="Pedido_Producto" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Usuario__cod_rol__3C69FB99" Association="Self.FK__Usuario__cod_rol__3C69FB99">
+            <End Role="Rol" EntitySet="Rol" />
+            <End Role="Usuario" EntitySet="Usuario" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BDMAJESTICModelStoreContainer" CdmEntityContainer="BDMAJESTICEntities">
+          <EntitySetMapping Name="Categoria">
+            <EntityTypeMapping TypeName="BDMAJESTICModel.Categoria">
+              <MappingFragment StoreEntitySet="Categoria">
+                <ScalarProperty Name="cod_cat" ColumnName="cod_cat" />
+                <ScalarProperty Name="nom_cat" ColumnName="nom_cat" />
+                <ScalarProperty Name="est_cat" ColumnName="est_cat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cliente">
+            <EntityTypeMapping TypeName="BDMAJESTICModel.Cliente">
+              <MappingFragment StoreEntitySet="Cliente">
+                <ScalarProperty Name="cod_cli" ColumnName="cod_cli" />
+                <ScalarProperty Name="ruc_cli" ColumnName="ruc_cli" />
+                <ScalarProperty Name="nom_cli" ColumnName="nom_cli" />
+                <ScalarProperty Name="telf_cli" ColumnName="telf_cli" />
+                <ScalarProperty Name="email_cli" ColumnName="email_cli" />
+                <ScalarProperty Name="dir_cli" ColumnName="dir_cli" />
+                <ScalarProperty Name="cod_dis" ColumnName="cod_dis" />
+                <ScalarProperty Name="est_cli" ColumnName="est_cli" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Distrito">
+            <EntityTypeMapping TypeName="BDMAJESTICModel.Distrito">
+              <MappingFragment StoreEntitySet="Distrito">
+                <ScalarProperty Name="cod_dis" ColumnName="cod_dis" />
+                <ScalarProperty Name="nom_dis" ColumnName="nom_dis" />
+                <ScalarProperty Name="est_dis" ColumnName="est_dis" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Empleado">
+            <EntityTypeMapping TypeName="BDMAJESTICModel.Empleado">
+              <MappingFragment StoreEntitySet="Empleado">
+                <ScalarProperty Name="cod_emp" ColumnName="cod_emp" />
+                <ScalarProperty Name="nom_emp" ColumnName="nom_emp" />
+                <ScalarProperty Name="ape_emp" ColumnName="ape_emp" />
+                <ScalarProperty Name="dni_emp" ColumnName="dni_emp" />
+                <ScalarProperty Name="fecha_in_emp" ColumnName="fecha_in_emp" />
+                <ScalarProperty Name="telf_emp" ColumnName="telf_emp" />
+                <ScalarProperty Name="sexo_emp" ColumnName="sexo_emp" />
+                <ScalarProperty Name="num_emp" ColumnName="num_emp" />
+                <ScalarProperty Name="est_emp" ColumnName="est_emp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Marca">
+            <EntityTypeMapping TypeName="BDMAJESTICModel.Marca">
+              <MappingFragment StoreEntitySet="Marca">
+                <ScalarProperty Name="cod_mar" ColumnName="cod_mar" />
+                <ScalarProperty Name="nom_mar" ColumnName="nom_mar" />
+                <ScalarProperty Name="est_mar" ColumnName="est_mar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pedido">
+            <EntityTypeMapping TypeName="BDMAJESTICModel.Pedido">
+              <MappingFragment StoreEntitySet="Pedido">
+                <ScalarProperty Name="cod_ped" ColumnName="cod_ped" />
+                <ScalarProperty Name="cod_cli" ColumnName="cod_cli" />
+                <ScalarProperty Name="cod_emp" ColumnName="cod_emp" />
+                <ScalarProperty Name="fec_ped" ColumnName="fec_ped" />
+                <ScalarProperty Name="act_ped" ColumnName="act_ped" />
+                <ScalarProperty Name="est_ped" ColumnName="est_ped" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Pedido_Producto">
+            <EntityTypeMapping TypeName="BDMAJESTICModel.Pedido_Producto">
+              <MappingFragment StoreEntitySet="Pedido_Producto">
+                <ScalarProperty Name="cod_ped" ColumnName="cod_ped" />
+                <ScalarProperty Name="cod_prod" ColumnName="cod_prod" />
+                <ScalarProperty Name="pre_prod" ColumnName="pre_prod" />
+                <ScalarProperty Name="can_prod" ColumnName="can_prod" />
+                <ScalarProperty Name="est_pp" ColumnName="est_pp" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Producto">
+            <EntityTypeMapping TypeName="BDMAJESTICModel.Producto">
+              <MappingFragment StoreEntitySet="Producto">
+                <ScalarProperty Name="cod_prod" ColumnName="cod_prod" />
+                <ScalarProperty Name="nom_prod" ColumnName="nom_prod" />
+                <ScalarProperty Name="stock_max_prod" ColumnName="stock_max_prod" />
+                <ScalarProperty Name="stock_min_prod" ColumnName="stock_min_prod" />
+                <ScalarProperty Name="prec_list_prod" ColumnName="prec_list_prod" />
+                <ScalarProperty Name="cap_bat" ColumnName="cap_bat" />
+                <ScalarProperty Name="cod_cat" ColumnName="cod_cat" />
+                <ScalarProperty Name="cod_mar" ColumnName="cod_mar" />
+                <ScalarProperty Name="est_prod" ColumnName="est_prod" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Rol">
+            <EntityTypeMapping TypeName="BDMAJESTICModel.Rol">
+              <MappingFragment StoreEntitySet="Rol">
+                <ScalarProperty Name="cod_rol" ColumnName="cod_rol" />
+                <ScalarProperty Name="nom_rol" ColumnName="nom_rol" />
+                <ScalarProperty Name="est_rol" ColumnName="est_rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="BDMAJESTICModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="cod_usu" ColumnName="cod_usu" />
+				  <ScalarProperty Name="nom_usu" ColumnName="nom_usu" />
+				  <ScalarProperty Name="ape_usu" ColumnName="ape_usu" />
+                <ScalarProperty Name="ema_usu" ColumnName="ema_usu" />
+                <ScalarProperty Name="con_usu" ColumnName="con_usu" />
+                <ScalarProperty Name="fec_cre" ColumnName="fec_cre" />
+                <ScalarProperty Name="cod_emp" ColumnName="cod_emp" />
+                <ScalarProperty Name="cod_rol" ColumnName="cod_rol" />
+                <ScalarProperty Name="est_usu" ColumnName="est_usu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
